@@ -1,0 +1,42 @@
+digraph sum_elements {
+
+node [shape=box, fontsize=12];
+
+subgraph cluster_array {
+    label="Array";
+    A [label="a[0]"];
+    B [label="a[1]"];
+    C [label="a[2]"];
+    D [label="a[3]"];
+    ... // add more nodes for additional elements
+}
+
+sum [label="Sum"];
+loop [label="Loop"];
+
+A -> sum [label="Add a[0]"];
+loop -> A [label="Increment counter"];
+
+{rank=same; loop; A;}
+
+B -> sum [label="Add a[1]"];
+loop -> B [label="Increment counter"];
+
+{rank=same; loop; B;}
+
+C -> sum [label="Add a[2]"];
+loop -> C [label="Increment counter"];
+
+{rank=same; loop; C;}
+
+D -> sum [label="Add a[3]"];
+loop -> D [label="Increment counter"];
+
+{rank=same; loop; D;}
+
+loop -> sum [label="Check condition"];
+
+sum -> loop [label="Update sum"];
+
+}
+

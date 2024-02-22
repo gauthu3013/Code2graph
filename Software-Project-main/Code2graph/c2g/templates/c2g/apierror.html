@@ -1,0 +1,15 @@
+{% extends 'c2g/index.html' %}
+{% block title %}
+API Error
+{% endblock %}
+{% block content %}
+    <h1>
+        Oh oh It turns out your API key is wrong
+    </h1>
+    <br>
+    <form method="post" action=".">
+        {% csrf_token %}
+        <label for="api">Please Re-Enter your API Key:</label>
+        <input type="text" name="api">
+    </form>
+{% endblock %}

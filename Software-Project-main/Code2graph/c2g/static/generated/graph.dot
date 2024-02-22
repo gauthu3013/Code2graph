@@ -1,0 +1,20 @@
+
+digraph G {
+    rankdir=LR;
+
+    node [shape=box];
+    Dog [label="Class Dog"];
+
+    node [shape=ellipse];
+    species [label="species: Canis familiaris"];
+    name [label="name"];
+    age [label="age"];
+    description [label="description()"];
+    speak [label="speak(sound)"];
+
+    Dog -> species;
+    Dog -> name;
+    Dog -> age;
+    Dog -> description;
+    Dog -> speak;
+}

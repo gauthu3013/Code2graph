@@ -1,0 +1,50 @@
+{% extends 'c2g/Getting.html' %}
+{% load static %}
+{% block title %}Output{% endblock %}
+{% block cs %}
+{% static 'output.css' %}
+{% endblock %}
+
+{% block output %}
+<div class="output-container">
+  {% if not flag %}
+  <div class="error-message">
+    <h1>Error</h1>
+    <p>Uh oh, an AI error has occurred. Please try again.</p>
+  </div>
+  {% else %}
+  <div class="success-container">
+    <div class="code-container">
+      <pre id="code-block">{{ code }}</pre>
+      <button class="copy-button" onclick="copyCode()">Copy to Clipboard</button>
+      <div class="copy-success-message" id="copy-success-message">Copied successfully!</div>
+    </div>
+    <img src="{% static 'generated/graph1.png' %}" alt="Generated Graph">
+  </div>
+  {% endif %}
+</div>
+
+<script>
+function copyCode() {
+    var codeBlock = document.getElementById('code-block');
+    var codeText = codeBlock.innerText || codeBlock.textContent;
+    var textarea = document.createElement('textarea');
+    textarea.value = codeText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    
+    var copyButton = document.querySelector('.copy-button');
+    copyButton.classList.add('copied');
+    
+    var successMessage = document.getElementById('copy-success-message');
+    successMessage.style.display = 'block';
+    
+    setTimeout(() => {
+        copyButton.classList.remove('copied');
+        successMessage.style.display = 'none';
+    }, 1000);
+}
+</script>
+{% endblock %}

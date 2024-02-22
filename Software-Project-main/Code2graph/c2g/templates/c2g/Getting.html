@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% block cs %}{% static 'getting.css' %}{% endblock %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{% static 'Logo/Safeimagekit-resized-img.png' %}">
+    </div>
+    <br>
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+    </div>
+    <div class="api-key-container">
+        {% if not api_key %}
+        <h1>Please enter your API key through</h1>
+        <form method="get" action="/" onsubmit="showLoading()">
+            <button>
+                Click here to enter the key
+            </button>
+        </form>
+        {% else %}
+        <h1>Your API key: - <span class="hidden-api-key">{{ api_key }}</span></h1>
+        <br>
+        <form method="get" action="/" onsubmit="showLoading()">
+            <button>
+                Click here to reset the key
+            </button>
+        </form>
+        {% endif %}
+    </div>
+
+    <h1>UPLOAD A CODE FILE</h1>
+    <form method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+        {% csrf_token %}
+        <label for="myfile">Upload the file here</label>
+        <br>
+        <input type="file" name="codefile" required>
+        <button type="submit">Submit</button>
+    </form>
+    <br><br>
+    <h1>OR ENTER THE REQUEST MANUALLY</h1>
+    <form method="post" action="." onsubmit="showLoading()">
+        {% csrf_token %}
+        <label for="req">Enter your request:</label>
+        <br>
+        <textarea name="req" id="req" placeholder="Type your request here..." required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% block output %}
+    {% endblock %}
+
+    <script>
+        function showLoading() {
+            var loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.display = 'flex'; // Show loading overlay
+        }
+    </script>
+</body>
+</html>

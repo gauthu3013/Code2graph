@@ -1,0 +1,10 @@
+{% extends 'c2g/index.html' %}
+{% block content %}
+<h1>Please enter your api/cookie key here</h1>
+<br>
+<form method="post" action=".">
+    {% csrf_token %}
+    <label for="api">Enter your API Key:</label>
+    <input type="text" name="api">
+</form>
+{% endblock %}
